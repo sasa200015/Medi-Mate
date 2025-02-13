@@ -35,10 +35,6 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: "",
   },
-  bio: {
-    type: String,
-    default: "",
-  },
   createdAt: {
     type: Date,
     default: Date.now,
