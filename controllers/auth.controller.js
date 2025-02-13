@@ -9,7 +9,6 @@ exports.register = wrapper(
     const allowedGenders = ["Male", "Female"];
 
     const { username, email, gender, password } = req.body;
-    console.log(password.length);
     if (!allowedGenders.includes(gender)) {
       const Error = AppError.create(400, "Gender should be Male or Female")
       return next(Error);
