@@ -8,7 +8,7 @@ exports.register = wrapper(
 
     const allowedGenders = ["Male", "Female"];
 
-    const { username, email, gender, password, bio } = req.body;
+    const { username, email, gender, password } = req.body;
     console.log(password.length);
     if (!allowedGenders.includes(gender)) {
       const Error = AppError.create(400, "Gender should be Male or Female")
@@ -23,7 +23,13 @@ exports.register = wrapper(
       return next(AppError.create(400, "Password should be at least 8 characters"));
     }
     const hashedPassword = await bcrypt.hash(password, 5);
-    const user = new User({ username, email, gender, password: hashedPassword, bio});
+    const user = new User({ username, email, gender, password: hashedPassword});
+        if (gender === "Male") {
+      user.profileImage = "Male.jpeg";
+    }
+    else {
+      user.profileImage = "Female.jpeg";
+    }
     await user.save();
     res.status(201).json({ Status: "Success", data: { user } });
   });
